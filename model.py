@@ -24,7 +24,7 @@ with col_controls:
     st.subheader("Model controls")
 
     tau = st.slider(
-        "feedback delay (τ)",
+        "Feedback delay (τ)",
         min_value=0.0,
         max_value=10.0,
         value=5.0,
@@ -32,7 +32,7 @@ with col_controls:
     )
 
     k = st.slider(
-        "pathogen pressure (k)",
+        "Pathogen pressure (k)",
         min_value=0.3,
         max_value=2.0,
         value=1.0,
@@ -40,7 +40,7 @@ with col_controls:
     )
 
     alpha = st.slider(
-        "feedback strength (α)",
+        "Feedback strength (α)",
         min_value=0.05,
         max_value=0.3,
         value=0.15,
@@ -132,5 +132,6 @@ with col_plot:
 st.caption(
     "This model is conceptual and intended to explore timing effects in banana–tr4 interactions."
 )
+
 
 
