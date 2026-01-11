@@ -124,7 +124,7 @@ with col_plot:
 
     st.markdown(
         "Immune outcome depends on whether signaling crosses an activation threshold "
-        "before inducible negative feedback suppresses it. the dashed curve shows a "
+        "before inducible negative feedback suppresses it. The dashed curve shows a "
         "baseline fast-feedback response, while the solid curve shows the effect of "
         "altering feedback timing."
     )
@@ -132,6 +132,7 @@ with col_plot:
 st.caption(
     "This model is conceptual and intended to explore timing effects in banana–tr4 interactions."
 )
+
 
 
 
