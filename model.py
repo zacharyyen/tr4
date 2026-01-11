@@ -48,11 +48,12 @@ with col_controls:
     )
 
 # ----------------------------
-# model components (UNCHANGED logic)
+# model setup
 # ----------------------------
 t = np.linspace(0, 20, 400)
 dt = t[1] - t[0]
 threshold = 7
+tau_baseline = 2.0  # fast feedback baseline (wild-type proxy)
 
 def feedback(t, tau, sharpness=4):
     return 1 / (1 + np.exp(-sharpness * (t - tau)))
@@ -62,30 +63,60 @@ def simulate(tau, k, alpha):
 
     for i in range(1, len(t)):
         F = feedback(t[i], tau)
-        dS = k - alpha * F * S[i-1]
-        S[i] = max(S[i-1] + dS * dt, 0)
+        dS = k - alpha * F * S[i - 1]
+        S[i] = max(S[i - 1] + dS * dt, 0)
 
     return S
 
 # ----------------------------
-# run model
+# run simulations
 # ----------------------------
-S = simulate(tau, k, alpha)
-commits = np.any(S > threshold)
+S_baseline = simulate(tau_baseline, k, alpha)
+S_current = simulate(tau, k, alpha)
+
+commits = np.any(S_current > threshold)
 
 # ----------------------------
-# plot + interpretation
+# plot
 # ----------------------------
 with col_plot:
     fig, ax = plt.subplots()
-    ax.plot(t, S, label="immune signal S(t)")
-    ax.axhline(threshold, linestyle="--", label="activation threshold")
+
+    ax.plot(
+        t,
+        S_baseline,
+        linestyle="--",
+        color="gray",
+        label="baseline (fast feedback)"
+    )
+
+    ax.plot(
+        t,
+        S_current,
+        label="current setting"
+    )
+
+    ax.axhline(
+        threshold,
+        linestyle=":",
+        color="black",
+        label="activation threshold"
+    )
+
+    # stabilize y-axis
+    y_max = max(S_baseline.max(), S_current.max())
+    ax.set_ylim(0, y_max * 1.1)
+
     ax.set_xlabel("time")
-    ax.set_ylabel("immune signal")
+    ax.set_ylabel("immune signal S(t)")
     ax.legend()
 
     st.pyplot(fig)
+    plt.close(fig)
 
+    # ----------------------------
+    # interpretation
+    # ----------------------------
     if commits:
         st.success("immune activation precedes feedback → defense commits")
     else:
@@ -93,8 +124,9 @@ with col_plot:
 
     st.markdown(
         "immune outcome depends on whether signaling crosses an activation threshold "
-        "before inducible negative feedback suppresses it. delaying feedback shifts this "
-        "balance without requiring stronger signaling."
+        "before inducible negative feedback suppresses it. the dashed curve shows a "
+        "baseline fast-feedback response, while the solid curve shows the effect of "
+        "altering feedback timing."
     )
 
 st.caption(
