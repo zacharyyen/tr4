@@ -7,9 +7,9 @@ import matplotlib.pyplot as plt
 # ----------------------------
 st.set_page_config(page_title="banana immunity timing", layout="wide")
 
-st.title("immune timing determines banana resistance to tr4")
+st.title("Immune timing determines banana resistance to tr4")
 st.caption(
-    "an interactive model showing how delayed negative feedback enables early immune activation"
+    "An interactive model showing how delayed negative feedback enables early immune activation"
 )
 
 # ----------------------------
@@ -118,17 +118,18 @@ with col_plot:
     # interpretation
     # ----------------------------
     if commits:
-        st.success("immune activation precedes feedback → defense commits")
+        st.success("Immune activation precedes feedback → defense commits")
     else:
-        st.warning("feedback suppresses signaling before activation → immune failure")
+        st.warning("Feedback suppresses signaling before activation → immune failure")
 
     st.markdown(
-        "immune outcome depends on whether signaling crosses an activation threshold "
+        "Immune outcome depends on whether signaling crosses an activation threshold "
         "before inducible negative feedback suppresses it. the dashed curve shows a "
         "baseline fast-feedback response, while the solid curve shows the effect of "
         "altering feedback timing."
     )
 
 st.caption(
-    "this model is conceptual and intended to explore timing effects in banana–tr4 interactions."
+    "This model is conceptual and intended to explore timing effects in banana–tr4 interactions."
 )
+
