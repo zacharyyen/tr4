@@ -21,7 +21,7 @@ col_controls, col_plot = st.columns([1, 2])
 # controls
 # ----------------------------
 with col_controls:
-    st.subheader("model controls")
+    st.subheader("Model controls")
 
     tau = st.slider(
         "feedback delay (τ)",
@@ -132,4 +132,5 @@ with col_plot:
 st.caption(
     "This model is conceptual and intended to explore timing effects in banana–tr4 interactions."
 )
+
 
